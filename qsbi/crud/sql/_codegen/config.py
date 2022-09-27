@@ -1,0 +1,17 @@
+from module import CRUDModule
+
+CRUDModule("account", "Account")
+CRUDModule("account_type", "AccountType")
+CRUDModule("audit_log", "AuditLog")
+CRUDModule("bank", "Bank")
+CRUDModule("category", "Category")
+CRUDModule("currency", "Currency")
+CRUDModule("currency_link", "CurrencyLink")
+CRUDModule("party", "Party")
+CRUDModule("payment", "Payment")
+CRUDModule("payment_type", "PaymentType")
+CRUDModule("reconcile", "Reconcile")
+CRUDModule("scheduled", "Scheduled")
+CRUDModule("sub_category", "SubCategory")
+CRUDModule("transact", "Transact")
+CRUDModule("user", "User")

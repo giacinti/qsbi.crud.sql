@@ -1,0 +1,19 @@
+from qsbi.backend.sql.models.{{ module }} import {{ classname }} as Model
+from qsbi.api.schemas.{{ module }} import {{ classname }} as Schema
+from qsbi.api.schemas.{{ module }} import {{ classname }}Dict as Dict
+from qsbi.api.schemas.{{ module }} import {{ classname }}Create as Create
+from qsbi.api.schemas.{{ module }} import {{ classname }}Read as Read
+from qsbi.api.schemas.{{ module }} import {{ classname }}Update as Update
+from qsbi.api.schemas.{{ module }} import {{ classname }}Delete as Delete
+
+from .base import SQLCRUDBase
+
+class SQLCRUD{{ classname }}(SQLCRUDBase[Model, Schema, Dict, Create, Update, Read, Delete]):
+{%- if specific is not none %}
+{%- include "%s" % specific %}
+{% else %}
+    ...
+{% endif %}
+
+sql_crud_{{ module }} = SQLCRUD{{ classname }}(Model, Schema, Dict, Create, Update, Read, Delete)
+
