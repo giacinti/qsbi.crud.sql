@@ -1,3 +1,4 @@
+from typing import Tuple
 from qsbi.backend.sql.models.audit_log import AuditLog as Model
 from qsbi.api.schemas.audit_log import AuditLog as Schema
 from qsbi.api.schemas.audit_log import AuditLogDict as Dict

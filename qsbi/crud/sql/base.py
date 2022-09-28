@@ -1,4 +1,4 @@
-from typing import Generic, TypeVar, Type, Dict, Any, Optional, List, Union, ClassVar
+from typing import Generic, TypeVar, Type, Dict, Any, Optional, List, Union, ClassVar, Tuple
 from pydantic import BaseModel
 from sqlalchemy import and_, select, func
 
@@ -42,34 +42,34 @@ class SQLCRUDBase(Generic[ModelType,
 
     # internal methods, use generic SchemeType
     # public CRUD methods enforce type hints
-    async def _read_or_create(self, sess: CRUDSession, obj_in: SchemaType, auto_create: bool = False) -> ModelType:
-        db_obj = await self._read(sess, obj_in)
-        if not db_obj and auto_create:
-            db_obj = await self._create(sess, obj_in)
-        return db_obj
+    def _fields_filter(self) -> Tuple:
+        return ('id')
+
+    def _filter_obj(self, obj_in: SchemaType) -> SchemaType:
+        #import pdb; pdb.set_trace()
+        obj_out = None
+        ffilter = self._fields_filter()
+        oitems = obj_in.dict(exclude_unset=True).items()
+        filtered_dict = { key:value for (key,value) in oitems if key in ffilter }
+        # this should not happen - validation should prevent it, but...
+        if len(filtered_dict) != 0:
+            obj_out = self.schema(**filtered_dict)
+        return obj_out
     
     async def _read(self, sess: CRUDSession, obj_in: SchemaType) -> Optional[ModelType]:
         # search for object and returns first occurence, if any
-        obj_list = await self._search(sess, obj_in)
-        try:
-            obj = obj_list[0]
-        except IndexError:
-            obj = None
+        obj = None
+        obj_search = self._filter_obj(obj_in)
+        if obj_search:
+            obj_list = await self._search(sess, obj_search, 1) # limit to first one
+            try:
+                obj = obj_list[0]
+            except IndexError:
+                obj = None
         return obj
 
-    async def _schem2model_dict(self, sess: CRUDSession, obj_in: SchemaType, exclude_unset: bool = False, auto_create: bool = False) -> Dict:
-        dict = obj_in.dict(exclude_unset=exclude_unset)
-        # not needed in simplified setup
-        # all schemas uses only id references
-        # for k in dict:
-        #     v = getattr(obj_in,k)
-        #     if isinstance(v, BaseModel):
-        #         creator = self.schema_dict[v.__class__.__qualname__]
-        #         dict[k]=await creator._read_or_create(sess,v,auto_create)
-        return dict
-
     async def _search(self, sess: CRUDSession, obj_in: SchemaType, limit: Optional[int] = None) -> List[ModelType]:
-        obj_dict = await self._schem2model_dict(sess, obj_in, exclude_unset=True, auto_create=False)
+        obj_dict = obj_in.dict(exclude_unset=True)
         filters = list(map(lambda a: getattr(self.model, a) == obj_dict[a], obj_dict))
         query = select(self.model).filter(and_(*filters))
         if limit:
@@ -78,8 +78,8 @@ class SQLCRUDBase(Generic[ModelType,
         return result.scalars().all()
 
     async def _create(self, sess: CRUDSession, obj_in: SchemaType) -> ModelType:
-        obj_in_data = await self._schem2model_dict(sess, obj_in, auto_create=True)
-        #import pdb; pdb.set_trace()
+        # TODO: check if object already exists
+        obj_in_data = obj_in.dict(exclude_unset=False)
         db_obj = self.model(**obj_in_data)
         sess.db.add(db_obj)
         await sess.db.commit()
@@ -87,7 +87,6 @@ class SQLCRUDBase(Generic[ModelType,
         return db_obj
 
     async def _delete(self, sess: CRUDSession, obj_in: SchemaType) -> Optional[Dict]:
-        #import pdb; pdb.set_trace()
         db_obj = await self._read(sess, obj_in)
         result = None
         if db_obj:
@@ -97,10 +96,9 @@ class SQLCRUDBase(Generic[ModelType,
         return result
 
     async def _update(self, sess: CRUDSession, obj_in: SchemaType) -> Optional[ModelType]:
-        #import pdb; pdb.set_trace()
         db_obj = await self._read(sess, obj_in)
         if db_obj:
-            update_data = await self._schem2model_dict(sess, obj_in, exclude_unset=True, auto_create=True)
+            update_data = obj_in.dict(exclude_unset=True)
             for k in update_data:
                 setattr(db_obj, k, update_data[k])
             sess.db.add(db_obj)
@@ -127,6 +125,7 @@ class SQLCRUDBase(Generic[ModelType,
 
     async def search(self, sess: CRUDSession, obj_in: SchemaCreateType, limit: int=100) -> List[SchemaType]:
         result = await self._search(sess, obj_in, limit)
+        #import pdb; pdb.set_trace()
         return result
 
     async def update(self, sess: CRUDSession, obj_in: SchemaUpdateType) -> Optional[SchemaType]:

@@ -1,3 +1,4 @@
+from typing import Tuple
 from qsbi.backend.sql.models.scheduled import Scheduled as Model
 from qsbi.api.schemas.scheduled import Scheduled as Schema
 from qsbi.api.schemas.scheduled import ScheduledDict as Dict

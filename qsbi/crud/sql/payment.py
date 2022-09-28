@@ -1,3 +1,4 @@
+from typing import Tuple
 from qsbi.backend.sql.models.payment import Payment as Model
 from qsbi.api.schemas.payment import Payment as Schema
 from qsbi.api.schemas.payment import PaymentDict as Dict

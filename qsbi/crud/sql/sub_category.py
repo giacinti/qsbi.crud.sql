@@ -1,3 +1,4 @@
+from typing import Tuple
 from qsbi.backend.sql.models.sub_category import SubCategory as Model
 from qsbi.api.schemas.sub_category import SubCategory as Schema
 from qsbi.api.schemas.sub_category import SubCategoryDict as Dict

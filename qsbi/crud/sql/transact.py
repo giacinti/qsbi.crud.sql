@@ -1,3 +1,4 @@
+from typing import Tuple
 from qsbi.backend.sql.models.transact import Transact as Model
 from qsbi.api.schemas.transact import Transact as Schema
 from qsbi.api.schemas.transact import TransactDict as Dict

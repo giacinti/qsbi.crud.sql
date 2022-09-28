@@ -1,3 +1,4 @@
+from typing import Tuple
 from qsbi.backend.sql.models.reconcile import Reconcile as Model
 from qsbi.api.schemas.reconcile import Reconcile as Schema
 from qsbi.api.schemas.reconcile import ReconcileDict as Dict

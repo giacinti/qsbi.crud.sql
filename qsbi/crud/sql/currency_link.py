@@ -1,3 +1,4 @@
+from typing import Tuple
 from qsbi.backend.sql.models.currency_link import CurrencyLink as Model
 from qsbi.api.schemas.currency_link import CurrencyLink as Schema
 from qsbi.api.schemas.currency_link import CurrencyLinkDict as Dict
