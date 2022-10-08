@@ -12,5 +12,4 @@ from .base import SQLCRUDBase
 class SQLCRUDPayment(SQLCRUDBase[Model, Schema, Dict, Create, Update, Read, Delete]):
     ...
 
-
 sql_crud_payment = SQLCRUDPayment(Model, Schema, Dict, Create, Update, Read, Delete)

@@ -13,5 +13,4 @@ class SQLCRUDUser(SQLCRUDBase[Model, Schema, Dict, Create, Update, Read, Delete]
     def _fields_filter(self) -> Tuple:
         return ('id','login')
 
-
 sql_crud_user = SQLCRUDUser(Model, Schema, Dict, Create, Update, Read, Delete)

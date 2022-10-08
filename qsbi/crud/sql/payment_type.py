@@ -13,5 +13,4 @@ class SQLCRUDPaymentType(SQLCRUDBase[Model, Schema, Dict, Create, Update, Read, 
     def _fields_filter(self) -> Tuple:
         return ('id','name')
 
-
 sql_crud_payment_type = SQLCRUDPaymentType(Model, Schema, Dict, Create, Update, Read, Delete)

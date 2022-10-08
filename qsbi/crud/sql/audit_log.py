@@ -12,5 +12,4 @@ from .base import SQLCRUDBase
 class SQLCRUDAuditLog(SQLCRUDBase[Model, Schema, Dict, Create, Update, Read, Delete]):
     ...
 
-
 sql_crud_audit_log = SQLCRUDAuditLog(Model, Schema, Dict, Create, Update, Read, Delete)

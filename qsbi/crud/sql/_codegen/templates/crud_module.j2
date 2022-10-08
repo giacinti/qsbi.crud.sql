@@ -11,10 +11,12 @@ from .base import SQLCRUDBase
 
 class SQLCRUD{{ classname }}(SQLCRUDBase[Model, Schema, Dict, Create, Update, Read, Delete]):
 {%- if specific is not none %}
-{%- include "%s" % specific %}
-{% else %}
+{%- for spec in specific %}
+{%- include "%s" % spec %}  
+{%- endfor %}  
+{%- else %}
     ...
-{% endif %}
+{%- endif %}
 
 sql_crud_{{ module }} = SQLCRUD{{ classname }}(Model, Schema, Dict, Create, Update, Read, Delete)
 

@@ -12,5 +12,4 @@ from .base import SQLCRUDBase
 class SQLCRUDScheduled(SQLCRUDBase[Model, Schema, Dict, Create, Update, Read, Delete]):
     ...
 
-
 sql_crud_scheduled = SQLCRUDScheduled(Model, Schema, Dict, Create, Update, Read, Delete)

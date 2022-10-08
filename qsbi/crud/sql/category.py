@@ -13,5 +13,4 @@ class SQLCRUDCategory(SQLCRUDBase[Model, Schema, Dict, Create, Update, Read, Del
     def _fields_filter(self) -> Tuple:
         return ('id','name')
 
-
 sql_crud_category = SQLCRUDCategory(Model, Schema, Dict, Create, Update, Read, Delete)

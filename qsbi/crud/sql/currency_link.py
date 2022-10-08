@@ -12,5 +12,4 @@ from .base import SQLCRUDBase
 class SQLCRUDCurrencyLink(SQLCRUDBase[Model, Schema, Dict, Create, Update, Read, Delete]):
     ...
 
-
 sql_crud_currency_link = SQLCRUDCurrencyLink(Model, Schema, Dict, Create, Update, Read, Delete)

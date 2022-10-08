@@ -13,5 +13,4 @@ class SQLCRUDBank(SQLCRUDBase[Model, Schema, Dict, Create, Update, Read, Delete]
     def _fields_filter(self) -> Tuple:
         return ('id','name')
 
-
 sql_crud_bank = SQLCRUDBank(Model, Schema, Dict, Create, Update, Read, Delete)

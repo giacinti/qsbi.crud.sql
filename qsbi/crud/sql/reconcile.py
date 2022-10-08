@@ -12,5 +12,4 @@ from .base import SQLCRUDBase
 class SQLCRUDReconcile(SQLCRUDBase[Model, Schema, Dict, Create, Update, Read, Delete]):
     ...
 
-
 sql_crud_reconcile = SQLCRUDReconcile(Model, Schema, Dict, Create, Update, Read, Delete)

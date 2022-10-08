@@ -6,7 +6,7 @@ class CRUDModule(object):
     modules_dict: ClassVar[dict] = {}
     name: str
     classname: Optional[str]
-    specific: Optional[str] = None
+    specific: Optional[List[str]] = None
 
     def __post_init__(self):
         self.modules_dict[self.name]=self

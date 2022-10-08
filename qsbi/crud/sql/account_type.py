@@ -13,5 +13,4 @@ class SQLCRUDAccountType(SQLCRUDBase[Model, Schema, Dict, Create, Update, Read, 
     def _fields_filter(self) -> Tuple:
         return ('id','name')
 
-
 sql_crud_account_type = SQLCRUDAccountType(Model, Schema, Dict, Create, Update, Read, Delete)

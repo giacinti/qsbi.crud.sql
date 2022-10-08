@@ -13,5 +13,4 @@ class SQLCRUDCurrency(SQLCRUDBase[Model, Schema, Dict, Create, Update, Read, Del
     def _fields_filter(self) -> Tuple:
         return ('id','name','nickname','code')
 
-
 sql_crud_currency = SQLCRUDCurrency(Model, Schema, Dict, Create, Update, Read, Delete)

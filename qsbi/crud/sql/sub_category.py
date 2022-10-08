@@ -12,5 +12,4 @@ from .base import SQLCRUDBase
 class SQLCRUDSubCategory(SQLCRUDBase[Model, Schema, Dict, Create, Update, Read, Delete]):
     ...
 
-
 sql_crud_sub_category = SQLCRUDSubCategory(Model, Schema, Dict, Create, Update, Read, Delete)

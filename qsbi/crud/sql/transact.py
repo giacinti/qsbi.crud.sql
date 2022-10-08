@@ -12,5 +12,4 @@ from .base import SQLCRUDBase
 class SQLCRUDTransact(SQLCRUDBase[Model, Schema, Dict, Create, Update, Read, Delete]):
     ...
 
-
 sql_crud_transact = SQLCRUDTransact(Model, Schema, Dict, Create, Update, Read, Delete)
