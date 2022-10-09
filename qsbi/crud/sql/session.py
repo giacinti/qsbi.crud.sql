@@ -1,18 +1,20 @@
-from typing import Generator
+from typing import AsyncGenerator
 
-from qsbi.api.crud.session import CRUDSession
 from qsbi.backend.sql.session import async_session
 
-class SQLCRUDSession(CRUDSession):
-    def __init__(self):
+class SQLCRUDSession(object):
+    def __init__(self) -> None:
         self.db = async_session()
 
-    async def close(self):
+    async def __aenter__(self):
+        return self
+
+    async def __aexit__(self, exc_type, exc_value, exc_tb):
         if self.db:
-            await self.db.close()
+            await self.db.close()  # type: ignore
 
 
-async def sql_get_session() -> Generator:
+""" async def sql_get_session() -> AsyncGenerator:
     async with SQLCRUDSession() as sess:
-        yield sess
+        yield sess """
 

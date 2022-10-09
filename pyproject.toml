@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "qsbi-crud-sql"
-version = "0.1.0"
+version = "0.2.0"
 description = "CRUD module between API and sql backend"
 authors = ["giacinti <philippe@giacinti.com>"]
 readme = "README.md"
