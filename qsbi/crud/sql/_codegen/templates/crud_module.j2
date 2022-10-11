@@ -1,4 +1,4 @@
-from typing import Tuple
+from typing import Tuple  # noqa: F401
 from qsbi.backend.sql.models.{{ module }} import {{ classname }} as Model
 from qsbi.api.schemas.{{ module }} import {{ classname }} as Schema
 from qsbi.api.schemas.{{ module }} import {{ classname }}Create as Create
@@ -8,6 +8,7 @@ from qsbi.api.schemas.{{ module }} import {{ classname }}Delete as Delete
 
 from .base import SQLCRUDBase
 
+
 class SQLCRUD{{ classname }}(SQLCRUDBase[Model, Schema, Create, Update, Read, Delete]):
 {%- if specific is not none %}
 {%- for spec in specific %}
@@ -16,6 +17,7 @@ class SQLCRUD{{ classname }}(SQLCRUDBase[Model, Schema, Create, Update, Read, De
 {%- else %}
     ...
 {%- endif %}
+
 
 sql_crud_{{ module }} = SQLCRUD{{ classname }}(Model, Schema, Create, Update, Read, Delete)
 

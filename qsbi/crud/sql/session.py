@@ -1,6 +1,5 @@
-from typing import AsyncGenerator
+from qsbi.backend.sql.async_session import async_session
 
-from qsbi.backend.sql.session import async_session
 
 class SQLCRUDSession(object):
     def __init__(self) -> None:
@@ -12,9 +11,3 @@ class SQLCRUDSession(object):
     async def __aexit__(self, exc_type, exc_value, exc_tb):
         if self.db:
             await self.db.close()  # type: ignore
-
-
-""" async def sql_get_session() -> AsyncGenerator:
-    async with SQLCRUDSession() as sess:
-        yield sess """
-

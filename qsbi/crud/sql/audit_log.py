@@ -1,4 +1,4 @@
-from typing import Tuple
+from typing import Tuple  # noqa: F401
 from qsbi.backend.sql.models.audit_log import AuditLog as Model
 from qsbi.api.schemas.audit_log import AuditLog as Schema
 from qsbi.api.schemas.audit_log import AuditLogCreate as Create
@@ -8,7 +8,9 @@ from qsbi.api.schemas.audit_log import AuditLogDelete as Delete
 
 from .base import SQLCRUDBase
 
+
 class SQLCRUDAuditLog(SQLCRUDBase[Model, Schema, Create, Update, Read, Delete]):
     ...
+
 
 sql_crud_audit_log = SQLCRUDAuditLog(Model, Schema, Create, Update, Read, Delete)
